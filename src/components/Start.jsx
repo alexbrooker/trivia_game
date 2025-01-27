@@ -35,11 +35,11 @@ export default function Start({ setUserName, userName }) {
                 </div>
                 <div className="start-container">
                     <div className="wrapper">
-                        <h1 className="text-2xl font-bold mb-8 text-white">Enter Your Details To Start</h1>
+                        <h1 className="text-2xl font-bold mb-8 text-white">Sign In To Start</h1>
                         <div>
                             <input 
                                 type="text" 
-                                placeholder='Enter Your Name' 
+                                placeholder='Enter Callsign' //todo selfie generated callsign
                                 className='startInput' 
                                 ref={inputRef} 
                                 onFocus={() => playGame()} 
