@@ -109,9 +109,12 @@ function App() {
                   key={money.id}
                   className={questionNumber === money.id ? "moneyListItem active" : "moneyListItem"}
                 >
-                  <span className="moneyListItemNumber">{money.id}</span>
+                  <div className="flex items-center">
+                    <span className="moneyListItemNumber">{money.id}</span>
+                    <span>{money.rank}</span>
+                  </div>
                   <span className="moneyListItemAmount">
-                    {money.rank} - $ {convert(money.amount)}
+                    $ {convert(money.amount)}
                   </span>
                 </li>
               ))}
@@ -119,19 +122,13 @@ function App() {
           </div>
         </>
       ) : (
-        <>
-          <Start setUserName={setUserName} userName={userName} />
-          <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={() => setShowLeaderboard(true)}
-          >
-            View Leaderboard
-          </button>
-        </>
-      )}
-
-      {showLeaderboard && (
-        <Leaderboard onClose={() => setShowLeaderboard(false)} />
+        <div className="start">
+          <div className="content">
+            <div className="start-container">
+              <Start setUserName={setUserName} userName={userName} />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

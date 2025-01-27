@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { GithubLogo } from "phosphor-react"
 import useSound from "use-sound";
 import game from "../assets/main.mp3";
+import { Leaderboard } from './Leaderboard';
 
 export default function Start({ setUserName, userName }) {
     //error msg
@@ -24,21 +25,25 @@ export default function Start({ setUserName, userName }) {
     }
     return (
         <div className='start' >
-
             <div className="content" >
                 <div className="github">
                     <a href="https://github.com/alexbrooker" target='_blank' rel='noreferrer'>
                         <GithubLogo size={25} />
                     </a>
                 </div>
-                <div className="wrapper">
-                    <label>Enter Your Username To Start </label>
-                    <input type="text" placeholder='Enter Your Username' className='startInput' ref={inputRef} onFocus={() => playGame()} />
-                    {
-                        error && <code>Enter username!</code>
-                    }
-                    <div className="btn">
-                        <button className='startButton' onClick={handleClick}>Start Quiz</button>
+                <div className="start-container">
+                    <div className="wrapper">
+                        <label>Enter Your Username To Start </label>
+                        <input type="text" placeholder='Enter Your Username' className='startInput' ref={inputRef} onFocus={() => playGame()} />
+                        {
+                            error && <code>Enter username!</code>
+                        }
+                        <div className="btn">
+                            <button className='startButton' onClick={handleClick}>Start Quiz</button>
+                        </div>
+                    </div>
+                    <div className="leaderboard-container">
+                        <Leaderboard />
                     </div>
                 </div>
             </div>

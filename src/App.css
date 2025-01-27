@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -49,16 +51,37 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
 }
 
 .question {
     width: 80%;
-    background: linear-gradient(#100241, black);
-    border: 2px solid white;
+    background: #FFB800;
+    color: #000000;
+    border: 4px solid #000000;
     text-align: center;
     padding: 20px;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    border-radius: 6px 6px 0 0;
 }
 
 .answers {
@@ -66,24 +89,68 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 15px;
 }
 
 .answer {
     width: 40%;
-    padding: 10px;
-    text-align: center;
-    background: linear-gradient(#0e0124, #22074d);
-    border: 1px solid white;
-    border-radius: 15px;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 0 10px 20px 10px;
+    background: #FFB800;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    margin: 0 10px 20px 10px;
+    display: flex;
+    align-items: center;
 }
 
-.answer:hover,
-.answer.active {
-    background: mediumblue;
+.answer::before {
+    content: attr(data-letter);
+    background: #000000;
+    color: #FFB800;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.answer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+}
+
+.answer:hover:not([disabled]) {
+    background: #FFC926;
+    transform: scale(1.02);
+}
+
+.answer:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #000000;
+}
+
+.answer:focus:not([disabled]) {
+    color: #000000;
 }
 
 .answer.correct {
@@ -91,23 +158,15 @@
 }
 
 @keyframes correct {
-
-    0%,
-    22%,
-    42% {
-        background: mediumblue;
+    0%, 22%, 42% {
+        background: #FFC926;
     }
-
-    20%,
-    40%,
-    60% {
-        background: linear-gradient(#0e0124,
-                #22074d);
+    20%, 40%, 60% {
+        background: #FFB800;
     }
-
-    62%,
-    100% {
-        background: green;
+    62%, 100% {
+        background: #4CAF50;
+        color: white;
     }
 }
 
@@ -116,23 +175,15 @@
 }
 
 @keyframes wrong {
-
-    0%,
-    22%,
-    42% {
-        background: mediumblue;
+    0%, 22%, 42% {
+        background: #FFC926;
     }
-
-    20%,
-    40%,
-    60% {
-        background: linear-gradient(#0e0124,
-                #22074d);
+    20%, 40%, 60% {
+        background: #FFB800;
     }
-
-    62%,
-    100% {
+    62%, 100% {
         background: crimson;
+        color: white;
     }
 }
 
@@ -141,34 +192,89 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px 0;
 }
 
 .moneyList {
     list-style: none;
     width: 100%;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .moneyListItem {
+    background: #FFB800;
+    color: #000000;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 5px;
-    border-radius: 5px;
+    border: 2px solid #000000;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.moneyListItem::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
 }
 
 .moneyListItem.active {
-    background-color: teal;
+    background: #FFC926;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .moneyListItemNumber {
-    font-size: 18px;
-    font-weight: 100;
-    width: 30%;
+    font-size: 16px;
+    font-weight: bold;
+    background: #000000;
+    color: #FFB800;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.moneyListItemAmount {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.moneyListItemAmount {
-    font-size: 20px;
-    font-weight: 300;
+/* Update mobile styles for money list */
+@media screen and (max-width: 767px) {
+    .moneyListItem {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .moneyListItemNumber {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+
+    .moneyListItemAmount {
+        font-size: 12px;
+    }
 }
 
 .earnedContent {
@@ -214,17 +320,20 @@
 .earnedContent .content .tryAgain {
     padding: 12px 0;
     width: 20%;
-    background: mediumblue;
-    color: #eee;
+    background: #FFB800;
+    color: #000000;
     outline: none;
-    border: none;
+    border: 2px solid #000000;
+    border-radius: 8px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: 1s ease;
+    transition: 0.3s ease;
+    font-weight: 600;
 }
 
 .earnedContent .content .tryAgain:hover {
-    background: linear-gradient(#100241, black);
+    background: #FFC926;
+    transform: scale(1.02);
 }
 
 .start {
@@ -237,7 +346,17 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
 
+.start-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+    position: relative;
 }
 
 .start .content {
@@ -252,10 +371,9 @@
 }
 
 .start .content .github {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    color: #eee;
+    position: fixed;
+    right: 2rem;
+    top: 2rem;
 }
 
 .start .content .github a {
@@ -276,16 +394,8 @@
 }
 
 .start .content .wrapper {
-    width: 400px;
-    height: auto;
-    background-color: #22074dbc;
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5rem 2rem;
+    flex: 0 1 400px;
+    margin: 0;
 }
 
 .start .content .wrapper label {
@@ -294,7 +404,6 @@
     text-transform: uppercase;
     margin-left: 5px;
     margin-bottom: 5px;
-
 }
 
 .start .content .wrapper input {
@@ -308,6 +417,21 @@
     color: #22074d;
     font-size: 1rem;
     caret-color: #22074d;
+}
+
+@media screen and (max-width: 900px) {
+    .start-container {
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .leaderboard-container {
+        width: 95%;
+    }
+
+    .start .content .wrapper {
+        width: 95%;
+    }
 }
 
 .start .content .wrapper input::placeholder {
@@ -332,17 +456,20 @@
 .start .content .wrapper button {
     padding: 12px 0;
     width: 50%;
-    background: #0000cd;
-    color: #eee;
+    background: #FFB800;
+    color: #000000;
     outline: none;
-    border: none;
+    border: 2px solid #000000;
+    border-radius: 8px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: 1s ease;
+    transition: 0.3s ease;
+    font-weight: 600;
 }
 
 .start .content .wrapper button:hover {
-    background: linear-gradient(#100241, black);
+    background: #FFC926;
+    transform: scale(1.02);
 }
 
 @media screen and (max-width: 767px) {
@@ -403,25 +530,12 @@
 
     .answers {
         width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
     }
 
     .answer {
         width: 40%;
         padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(#0e0124, #22074d);
-        border: 1px solid white;
-        border-radius: 10px;
         font-size: 12px;
-        font-weight: 300;
-        margin: 0 10px 20px 10px;
-        cursor: pointer;
     }
 
     .earnedContent .content .endText {
@@ -443,5 +557,94 @@
     .moneyListItemAmount {
         font-size: 18px;
         font-weight: 300;
+    }
+}
+
+.start-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to top */
+    gap: 2rem;
+    padding: 2rem;
+    position: relative; /* For logo positioning */
+}
+
+.leaderboard-container {
+    flex: 0 1 400px;
+}
+
+.leaderboard-wrapper {
+    background-color: #22074dbc;
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 1.5rem 2rem;
+    width: 100%;
+}
+
+.scores-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.score-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #eee;
+    transition: all 0.2s ease;
+}
+
+.score-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.score-item .rank {
+    font-weight: bold;
+    color: #FFB800;
+}
+
+.score-item .username {
+    font-weight: 500;
+}
+
+.score-item .score {
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: #FFB800;
+}
+
+.no-scores {
+    text-align: center;
+    color: #eee;
+    opacity: 0.7;
+    padding: 1rem;
+}
+
+/* Update existing start wrapper styles */
+.start .content .wrapper {
+    flex: 0 1 400px;
+    margin: 0;
+}
+
+/* Add responsive styles */
+@media screen and (max-width: 900px) {
+    .start-container {
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .leaderboard-container {
+        width: 95%;
+    }
+
+    .start .content .wrapper {
+        width: 95%;
     }
 }
