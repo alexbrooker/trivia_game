@@ -6,8 +6,6 @@ import Timer from "./components/Timer";
 import Start from "./components/Start";
 import { Earned } from "./components/Earned";
 import { ListOfAvQuestions } from './data/avquestions';
-import { Leaderboard } from "./components/Leaderboard";
-
 
 function App() {
   //username 
@@ -18,9 +16,6 @@ function App() {
   const [stop, setStop] = useState(false)
   //state for seeting amount earned
   const [earned, setEarned] = useState("0")
-  //state for showing leaderboard
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
-
   //using useMemo hook to hold the money pyraid data
   const MoneyPyramidData = useMemo(() => MoneyPyramid, []);
 
@@ -124,22 +119,24 @@ function App() {
             ) : (
               <>
                 <div className="top">
-                  <div className="timer">
-                    <Timer setStop={setStop} questionNumber={questionNumber} />
-                  </div>
-                  <div className="flex flex-col items-center gap-2">
-                    <button
-                      onClick={handleAskForHelp}
-                      disabled={isLoadingHint}
-                      className="ai-help-button"
-                    >
-                      {isLoadingHint ? "Getting Hint..." : "Ask AI for Help"}
-                    </button>
-                    {hint && (
-                      <div className="hint-container">
-                        <p>{hint}</p>
-                      </div>
-                    )}
+                  <div className="flex items-center justify-between w-full gap-4">
+                    <div className="timer">
+                      <Timer setStop={setStop} questionNumber={questionNumber} />
+                    </div>
+                    <div className="flex flex-col items-end gap-2">
+                      <button
+                        onClick={handleAskForHelp}
+                        disabled={isLoadingHint}
+                        className="ai-help-button"
+                      >
+                        {isLoadingHint ? "Getting Hint..." : "Ask AI for Help"}
+                      </button>
+                      {hint && (
+                        <div className="hint-container">
+                          <p>{hint}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="bottom">
@@ -175,8 +172,8 @@ function App() {
               <Start 
                 setUserName={setUserName}
                 userName={userName}
-                setUserEmail={setUserEmail}  // Add this line
-                userEmail={userEmail}        // Add this line
+                setUserEmail={setUserEmail}  
+                userEmail={userEmail}        
               />
             </div>
           </div>
