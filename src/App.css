@@ -391,14 +391,6 @@
     flex: 0 1 400px;
   }
   
-  .leaderboard-wrapper {
-    background-color: var(--color-leaderboard-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    padding: var(--spacing-lg) var(--spacing-xl);
-    width: 100%;
-  }
-  
   .scores-container {
     width: 100%;
     display: flex;
@@ -517,12 +509,15 @@
   /* ... existing CSS ... */
 
 /* Start Form Styles */
-.wrapper {
+.wrapper,
+.leaderboard-wrapper {
     background: var(--color-dark-overlay);
     padding: var(--spacing-xl);
     border-radius: var(--border-radius-lg);
     width: 100%;
     max-width: 500px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .startInput {
