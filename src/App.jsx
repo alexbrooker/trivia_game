@@ -23,10 +23,13 @@ function App() {
   //using useMemo hook to hold the money pyraid data
   const MoneyPyramidData = useMemo(() => MoneyPyramid, []);
 
+  const [userEmail, setUserEmail] = useState(null)  // Add this line
+
   const handleGameComplete = () => {
     try {
       const scoreData = {
         username: userName,
+        email: userEmail,  // Add this line
         score: earned,
         timestamp: new Date().toISOString()
       };
@@ -125,7 +128,12 @@ function App() {
         <div className="start">
           <div className="content">
             <div className="start-container">
-              <Start setUserName={setUserName} userName={userName} />
+              <Start 
+                setUserName={setUserName}
+                userName={userName}
+                setUserEmail={setUserEmail}  // Add this line
+                userEmail={userEmail}        // Add this line
+              />
             </div>
           </div>
         </div>
