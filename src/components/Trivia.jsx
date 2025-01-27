@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ListOfQuestions } from '../data/questions';
+import { ListOfAvQuestions } from '../data/avquestions';
 import useSound from "use-sound";
 import play from "../assets/sounds_play.mp3";
 import correct from "../assets/sounds_correct.mp3";
@@ -28,7 +28,7 @@ export default function Trivia({ setStop, setQuestionNumber, questionNumber }) {
 
     useEffect(() => {
         // setting the question from the list of questions
-        setQuestion(ListOfQuestions[questionNumber - 1])
+        setQuestion(ListOfAvQuestions[questionNumber - 1])
     }, [questionNumber])
 
     //Custom function for timeout with duration and a callback function as parameters
@@ -46,7 +46,7 @@ export default function Trivia({ setStop, setQuestionNumber, questionNumber }) {
             if (a.correct) {
                 correctAnswer()
                 delay(1000, () => {
-                    if (ListOfQuestions.length !== questionNumber) {
+                    if (ListOfAvQuestions.length !== questionNumber) {
                         setQuestionNumber(prev => prev + 1);
                         setSelectedAnswer(null);
                     } else {

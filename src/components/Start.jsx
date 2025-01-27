@@ -27,7 +27,7 @@ export default function Start({ setUserName, userName }) {
 
             <div className="content" >
                 <div className="github">
-                    <a href="https://github.com/Signor1" target='_blank' rel='noreferrer'>
+                    <a href="https://github.com/alexbrooker" target='_blank' rel='noreferrer'>
                         <GithubLogo size={25} />
                     </a>
                 </div>
