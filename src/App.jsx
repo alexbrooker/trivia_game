@@ -8,6 +8,7 @@ import { Earned } from "./components/Earned";
 import { ListOfAvQuestions } from './data/avquestions';
 import { Leaderboard } from "./components/Leaderboard";
 
+
 function App() {
   //username 
   const [userName, setUserName] = useState(null)
@@ -24,6 +25,44 @@ function App() {
   const MoneyPyramidData = useMemo(() => MoneyPyramid, []);
 
   const [userEmail, setUserEmail] = useState(null)  // Add this line
+  const [isLoadingHint, setIsLoadingHint] = useState(false);
+  const [hint, setHint] = useState("");
+  
+  async function handleAskForHelp() {
+    setIsLoadingHint(true);
+    try {
+      const currentQuestion = ListOfAvQuestions[questionNumber - 1];
+      const response = await fetch('https://api.groq.com/v1/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.REACT_APP_GROQ_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'mixtral-8x7b-32768',
+          messages: [{
+            role: 'user',
+            content: `You are a helpful aviation expert. The user needs a hint for this question:
+              
+              Question: ${currentQuestion.question}
+              Options: ${currentQuestion.options.join(', ')}
+              
+              Provide a brief, helpful hint that guides them toward the correct answer without directly revealing it. Keep the hint under 100 words.`
+          }],
+          temperature: 0.7,
+          max_tokens: 150,
+        }),
+      });
+
+      const data = await response.json();
+      setHint(data.choices[0].message.content);
+    } catch (error) {
+      console.error('Error getting hint:', error);
+      setHint("Sorry, couldn't get a hint right now.");
+    } finally {
+      setIsLoadingHint(false);
+    }
+  }
 
   const handleGameComplete = () => {
     try {
@@ -81,18 +120,26 @@ function App() {
                   setQuestionNumber={setQuestionNumber}
                   setEarned={setEarned}
                 />
-                <button
-                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  onClick={() => setShowLeaderboard(true)}
-                >
-                  View Leaderboard
-                </button>
               </>
             ) : (
               <>
                 <div className="top">
                   <div className="timer">
                     <Timer setStop={setStop} questionNumber={questionNumber} />
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <button
+                      onClick={handleAskForHelp}
+                      disabled={isLoadingHint}
+                      className="ai-help-button"
+                    >
+                      {isLoadingHint ? "Getting Hint..." : "Ask AI for Help"}
+                    </button>
+                    {hint && (
+                      <div className="hint-container">
+                        <p>{hint}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="bottom">
@@ -108,11 +155,8 @@ function App() {
           <div className="pyramid">
             <ul className="moneyList">
               {MoneyPyramidData.map((money) => (
-                <li 
-                  key={money.id}
-                  className={questionNumber === money.id ? "moneyListItem active" : "moneyListItem"}
-                >
-                  <div className="flex items-center">
+                <li className={questionNumber === money.id ? "moneyListItem active" : "moneyListItem"}>
+                  <div className="flex">
                     <span className="moneyListItemNumber">{money.id}</span>
                     <span>{money.rank}</span>
                   </div>
